@@ -1,0 +1,8 @@
+default_window: "1d"
+max_results: 100
+sort_by: "submittedDate"
+sort_order: "descending"
+base_url: "https://export.arxiv.org/api/query"
+http_timeout_seconds: 10
+http_max_retries: 3
+log_level: "INFO"

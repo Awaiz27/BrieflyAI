@@ -1,0 +1,137 @@
+name: BrieflyAI
+services:
+  db:
+    image: ankane/pgvector:latest
+    container_name: postgres_db
+    restart: always
+    env_file:
+      - ../.env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-defaultuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-defaultpass}
+      POSTGRES_DB: ${POSTGRES_DB:-defaultdb}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - net
+ 
+  adminer:
+    container_name : adminer-db
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - net
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - net
+
+  ollama-init:
+    image: ollama/ollama:latest
+    container_name: ollama-init
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    entrypoint: /bin/sh
+    command: -c '
+      echo "Waiting for Ollama server...";
+      until ollama list >/dev/null 2>&1; do
+        sleep 2;
+      done;
+
+      echo "Ollama is ready.";
+
+      echo "Pulling Qwen3...";
+      ollama pull qwen3:0.6b-q4_K_M;
+
+      echo "Pulling embedding model...";
+      ollama pull qwen3-embedding:0.6b-fp16;
+
+      echo "Models ready.";    '
+    restart: "no"
+    networks:
+      - net
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    ports:
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD-SHELL", "rabbitmq-diagnostics -q ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    networks:
+      - net
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    networks:
+      - net
+
+  celery_beat:
+    build: .
+    command: celery -A worker beat --loglevel=info
+    env_file: .env
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      # celery_worker:
+      #   condition: service_started
+    volumes:
+      - ./data:/data
+    networks:
+      - net
+
+
+
+
+
+networks:
+  net:
+    driver: bridge 
+
+volumes:
+  postgres_data:
+  ollama_data:
