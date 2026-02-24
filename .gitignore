@@ -84,5 +84,5 @@ coverage.xml
 # Misc
 *.pid
 *.seed
-.Explote.ipynb
+Explore.ipynb
 *.ipynb_checkpoints/
