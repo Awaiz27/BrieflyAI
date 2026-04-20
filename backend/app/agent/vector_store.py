@@ -4,7 +4,11 @@ Supports:
   1. Vector similarity search (cosine distance on embeddings)
   2. Keyword-based FTS (full-text search with ranking)
   3. RRF (Reciprocal Rank Fusion) to combine results
-  4. Intelligent routing to search papers (summaries), chunks (details), or both
+    4. Intelligent routing to search papers (summaries), chunks (details), or both
+
+Chunk search spans two physical tables:
+    - paperAbstractChunk: abstract-centric chunks + llm_summary
+    - chunk_data: full paper body chunks with section/page metadata
 """
 
 from __future__ import annotations
@@ -16,9 +20,10 @@ from enum import Enum
 from dataclasses import dataclass
 
 from sqlalchemy import select, func, and_, or_, text
+from sqlalchemy.exc import ProgrammingError
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.db.models import PaperAbstractChunk, RPAbstractData
+from app.db.models import Chunk, PaperAbstractChunk, RPAbstractData
 from app.services.embeddings import embed_query
 
 
@@ -53,20 +58,36 @@ class PgVectorStore:
     # System prompts for routing decisions
     ROUTING_SYSTEM_PROMPT = """You are a query router for a research paper RAG system.
 
+You must reason over this relationship:
+- RP_abstract_data (master paper metadata)
+- paperAbstractChunk (abstract chunks linked by rp_abstract_id)
+- chunk_data (body chunks linked by rp_abstract_id)
+
+Chunk-level answers must be grounded to the parent paper in RP_abstract_data.
+
 ## Available Search Targets:
 1. **Papers Table (RP_abstract_data)**: Contains high-level paper metadata
    - Fields: title, summary (with vector embedding), authors, published date, categories
    - Best for: General paper discovery, broad topic overview, author/category filtering
    - Use when: User asks about "papers on X", "finding research about Y", "what papers", "which papers"
 
-2. **Chunks Table (PaperAbstractChunk)**: Contains detailed chunks from paper abstracts
-   - Fields: chunk text (with vector embedding), llm_summary (detailed summary), similarity scores
-   - Best for: Specific technical details, precise quotes, methodology, findings
-   - Use when: User asks "how do they X?", "explain method", "what's the approach", "technical details"
+2. **Chunks Tables**:
+    a) **paperAbstractChunk** (abstract chunks)
+        - Fields: text, llm_summary, embedding, fts, rp_abstract_id
+        - Best for: concise abstract-grounded answers
+    b) **chunk_data** (body chunks)
+        - Fields: text, llm_summary, section, page_start, page_end, embedding, fts, rp_abstract_id
+        - Best for: implementation details and deep technical context
+    - Use chunk search when user asks "how do they X?", "explain method", "technical details"
 
 3. **Both Tables (Dual-Stage)**: Search papers FIRST to find relevant papers, then detailed chunks from those papers
    - Best for: In-depth research requiring both overview and details
    - Use when: User asks open-ended research questions, needs comprehensive answers
+
+Focus-scope rule:
+- If focused paper IDs are provided by runtime filters, keep retrieval inside that paper scope.
+- If user asks metadata/summary only, papers can be enough.
+- If user asks explanation/method/results/comparison, prefer chunks or both.
 
 ## Decision Rules:
 - If query is broad/categorical → PAPERS (for overview)
@@ -127,7 +148,7 @@ Respond with JSON:
             query: User search query
             k: Number of results (defaults to self.k)
             target: Which table(s) to search
-            paper_ids: Restrict to specific papers (optional)
+            paper_ids: Restrict to specific papers (optional, usually focused_paper_ids)
             use_hybrid: If True, combine vector + keyword search; if False, vector only
             
         Returns:
@@ -213,22 +234,35 @@ Respond with JSON:
         
         query_vec = await embed_query(query)
 
+        abstract_vector_results = await self._vector_search_chunks(
+            session, query_vec, k, paper_ids
+        )
+        body_vector_results = await self._vector_search_body_chunks(
+            session, query_vec, k, paper_ids
+        )
+
         if use_hybrid:
-            # Vector search on chunks
-            vector_results = await self._vector_search_chunks(
-                session, query_vec, k, paper_ids
-            )
-            
-            # Keyword FTS search on chunks
-            keyword_results = await self._keyword_search_chunks(
+            abstract_keyword_results = await self._keyword_search_chunks(
                 session, query, k, paper_ids
             )
-            
-            # Proper RRF fusion: combine independently ranked retrieval lists.
-            return self._rrf_fuse_ranked_lists([vector_results, keyword_results], k=k)
-        else:
-            # Vector search only
-            return await self._vector_search_chunks(session, query_vec, k, paper_ids)
+            body_keyword_results = await self._keyword_search_body_chunks(
+                session, query, k, paper_ids
+            )
+
+            # Proper RRF fusion: combine independently ranked retrieval lists
+            # from abstract chunks + body chunks across vector and keyword paths.
+            return self._rrf_fuse_ranked_lists(
+                [
+                    abstract_vector_results,
+                    body_vector_results,
+                    abstract_keyword_results,
+                    body_keyword_results,
+                ],
+                k=k,
+            )
+
+        # Vector-only chunk search still spans both chunk tables.
+        return self._rrf_fuse_ranked_lists([abstract_vector_results, body_vector_results], k=k)
 
     async def _vector_search_papers(
         self,
@@ -332,10 +366,74 @@ Respond with JSON:
                 metadata={
                     "rp_abstract_id": str(row["rp_abstract_id"]),
                     "chunk_id": str(row["id"]),
+                    "source_table": "paperAbstractChunk",
                     "full_text": row["text"],
                 },
             ))
         
+        return results
+
+    async def _vector_search_body_chunks(
+        self,
+        session: AsyncSession,
+        query_vec: list[float],
+        k: int,
+        paper_ids: list[str] | None = None,
+    ) -> list[SearchResult]:
+        """Vector similarity search on body chunk_data embeddings."""
+        stmt = (
+            select(
+                Chunk.id,
+                Chunk.rp_abstract_id,
+                Chunk.text,
+                Chunk.llm_summary,
+                Chunk.section,
+                Chunk.page_start,
+                Chunk.page_end,
+                Chunk.doc_id,
+                RPAbstractData.title,
+                RPAbstractData.link,
+                RPAbstractData.authors,
+                (1.0 - Chunk.embedding.cosine_distance(query_vec)).label("similarity"),
+            )
+            .join(RPAbstractData, RPAbstractData.id == Chunk.rp_abstract_id)
+            .where(Chunk.embedding.isnot(None), Chunk.rp_abstract_id.isnot(None))
+            .order_by(Chunk.embedding.cosine_distance(query_vec).asc())
+            .limit(k)
+        )
+
+        if paper_ids:
+            valid_ids = self._validate_paper_ids(paper_ids)
+            if not valid_ids:
+                return []
+            stmt = stmt.where(RPAbstractData.id.in_(valid_ids))
+
+        rows = (await session.execute(stmt)).mappings().all()
+
+        results = []
+        for i, row in enumerate(rows, 1):
+            results.append(SearchResult(
+                id=str(row["id"]),
+                source_type="chunk",
+                text=row["llm_summary"] or row["text"],
+                title=row["title"],
+                link=row["link"],
+                authors=row["authors"],
+                similarity_score=float(row["similarity"]),
+                fts_rank=None,
+                combined_score=1.0 / (i + self.rrf_constant),
+                metadata={
+                    "rp_abstract_id": str(row["rp_abstract_id"]),
+                    "chunk_id": str(row["id"]),
+                    "source_table": "chunk_data",
+                    "section": row["section"],
+                    "page_start": row["page_start"],
+                    "page_end": row["page_end"],
+                    "doc_id": row["doc_id"],
+                    "full_text": row["text"],
+                },
+            ))
+
         return results
 
     async def _keyword_search_papers(
@@ -500,10 +598,121 @@ Respond with JSON:
                 metadata={
                     "rp_abstract_id": str(row["rp_abstract_id"]),
                     "chunk_id": str(row["id"]),
+                    "source_table": "paperAbstractChunk",
                     "full_text": row["text"],
                 },
             ))
         
+        return results
+
+    async def _keyword_search_body_chunks(
+        self,
+        session: AsyncSession,
+        query: str,
+        k: int,
+        paper_ids: list[str] | None = None,
+    ) -> list[SearchResult]:
+        """Keyword-based FTS search on chunk_data text."""
+        ts_query = func.websearch_to_tsquery("english", query)
+        stmt = (
+            select(
+                Chunk.id,
+                Chunk.rp_abstract_id,
+                Chunk.text,
+                Chunk.llm_summary,
+                Chunk.section,
+                Chunk.page_start,
+                Chunk.page_end,
+                Chunk.doc_id,
+                RPAbstractData.title,
+                RPAbstractData.link,
+                RPAbstractData.authors,
+                func.ts_rank(Chunk.fts, ts_query).label("fts_rank"),
+            )
+            .join(RPAbstractData, RPAbstractData.id == Chunk.rp_abstract_id)
+            .where(Chunk.rp_abstract_id.isnot(None), Chunk.fts.op("@@")(ts_query))
+            .order_by(text("fts_rank DESC"))
+            .limit(k)
+        )
+
+        if paper_ids:
+            valid_ids = self._validate_paper_ids(paper_ids)
+            if not valid_ids:
+                return []
+            stmt = stmt.where(RPAbstractData.id.in_(valid_ids))
+
+        try:
+            # Isolate the fts-column path in a SAVEPOINT so if the DB is missing
+            # chunk_data.fts, we can recover and execute fallback in the same
+            # outer transaction without hitting InFailedSQLTransaction.
+            async with session.begin_nested():
+                rows = (await session.execute(stmt)).mappings().all()
+        except ProgrammingError as exc:
+            # Backward-compat fallback: some DBs may not yet have chunk_data.fts.
+            # In that case, use trigram similarity over chunk text to avoid hard failure.
+            if "chunk_data.fts" not in str(exc).lower() and "fts" not in str(exc).lower():
+                raise
+
+            logger.warning(
+                "[PgVectorStore] chunk_data.fts missing; falling back to trigram text search for body chunks"
+            )
+
+            fallback_stmt = (
+                select(
+                    Chunk.id,
+                    Chunk.rp_abstract_id,
+                    Chunk.text,
+                    Chunk.llm_summary,
+                    Chunk.section,
+                    Chunk.page_start,
+                    Chunk.page_end,
+                    Chunk.doc_id,
+                    RPAbstractData.title,
+                    RPAbstractData.link,
+                    RPAbstractData.authors,
+                    func.similarity(func.coalesce(Chunk.text, ""), query).label("fts_rank"),
+                )
+                .join(RPAbstractData, RPAbstractData.id == Chunk.rp_abstract_id)
+                .where(
+                    Chunk.rp_abstract_id.isnot(None),
+                    func.similarity(func.coalesce(Chunk.text, ""), query) > 0.08,
+                )
+                .order_by(text("fts_rank DESC"))
+                .limit(k)
+            )
+
+            if paper_ids:
+                valid_ids = self._validate_paper_ids(paper_ids)
+                if not valid_ids:
+                    return []
+                fallback_stmt = fallback_stmt.where(RPAbstractData.id.in_(valid_ids))
+
+            rows = (await session.execute(fallback_stmt)).mappings().all()
+
+        results = []
+        for i, row in enumerate(rows, 1):
+            results.append(SearchResult(
+                id=str(row["id"]),
+                source_type="chunk",
+                text=row["llm_summary"] or row["text"],
+                title=row["title"],
+                link=row["link"],
+                authors=row["authors"],
+                similarity_score=0.0,
+                fts_rank=float(row["fts_rank"]),
+                combined_score=1.0 / (i + self.rrf_constant),
+                metadata={
+                    "rp_abstract_id": str(row["rp_abstract_id"]),
+                    "chunk_id": str(row["id"]),
+                    "source_table": "chunk_data",
+                    "section": row["section"],
+                    "page_start": row["page_start"],
+                    "page_end": row["page_end"],
+                    "doc_id": row["doc_id"],
+                    "full_text": row["text"],
+                },
+            ))
+
         return results
 
     def _rrf_fuse_ranked_lists(

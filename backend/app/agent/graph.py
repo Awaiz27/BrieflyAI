@@ -532,11 +532,16 @@ class ResearchAgent:
         - both: For comprehensive research queries (dual-stage)
         """
         rewritten_query = s.get("rewritten_query", s["query"])
+        focused_ids = s.get("focused_paper_ids") or []
         logger.info(f"[_rag_route] Routing query: {rewritten_query[:80]}")
         
         prompt = [
             SystemMessage(content=self._rag_routing_prompt()),
-            HumanMessage(content=f"User query: {rewritten_query}"),
+            HumanMessage(content=(
+                f"User query: {rewritten_query}\n\n"
+                f"Focused paper IDs: {focused_ids if focused_ids else '(none)'}\n\n"
+                "Select target according to query intent and focus scope rules."
+            )),
         ]
         
         try:
@@ -551,6 +556,16 @@ class ResearchAgent:
                 target = SearchTarget.CHUNKS
             else:
                 target = SearchTarget.BOTH
+
+            # If user is focused on specific papers, avoid overly broad paper-only routing
+            # unless it is clearly a summary/metadata request.
+            if focused_ids and target == SearchTarget.PAPERS:
+                q_l = rewritten_query.lower()
+                metadata_markers = (
+                    "title", "author", "authors", "category", "published", "link", "metadata", "summary"
+                )
+                if not any(tok in q_l for tok in metadata_markers):
+                    target = SearchTarget.BOTH
             
             logger.info(f"[_rag_route] ✓ Routed to target: {target.value}")
         except Exception as e:
@@ -854,6 +869,7 @@ class ResearchAgent:
             ("refresh_summary", self._refresh_summary),
             ("rewrite_query", self._rewrite_query), ("need_context", self._need_context),
             ("plan_sources", self._plan_sources),
+            ("rag_route", self._rag_route),
             ("rag_expand", self._rag_expand), ("rag_retrieve", self._rag_retrieve),
             ("rag_fuse", self._rag_fuse),
             ("compose", self._compose),
@@ -869,8 +885,9 @@ class ResearchAgent:
         g.add_edge("rewrite_query", "need_context")
         g.add_conditional_edges("need_context", self._route_need_context, {"direct": "compose", "context": "plan_sources"})
         g.add_conditional_edges("plan_sources", self._route_sources, {
-            "history": "compose", "rag": "rag_expand", "both": "rag_expand", "none": "compose",
+            "history": "compose", "rag": "rag_route", "both": "rag_route", "none": "compose",
         })
+        g.add_edge("rag_route", "rag_expand")
         g.add_edge("rag_expand", "rag_retrieve")
         g.add_edge("rag_retrieve", "rag_fuse")
         g.add_edge("rag_fuse", "compose")

@@ -42,14 +42,22 @@ that the LLM decides whether to invoke, enabling autonomous research.
 │                   │ 1:N (has many chunks)                        │
 │                   ↓                                               │
 │  ┌────────────────────────────────┐                              │
-│  │  PaperAbstractChunk (Chunks)   │ ← Detailed content           │
+│  │ paperAbstractChunk (Chunks-A)  │ ← Abstract chunk content     │
 │  ├────────────────────────────────┤                              │
 │  │ id (PK, UUID)                  │                              │
 │  │ rp_abstract_id (FK)            │ → Links to paper             │
-│  │ text                           │                              │
-│  │ llm_summary                    │                              │
+│  │ text, llm_summary              │                              │
 │  │ embedding + fts                │ ← Search indices             │
-│  │ section, page_start/end        │                              │
+│  └────────────────────────────────┘                              │
+│                                                                   │
+│  ┌────────────────────────────────┐                              │
+│  │   chunk_data (Chunks-B)        │ ← Full paper body chunks     │
+│  ├────────────────────────────────┤                              │
+│  │ id (PK, UUID)                  │                              │
+│  │ rp_abstract_id (FK)            │ → Links to paper             │
+│  │ doc_id, text, llm_summary      │                              │
+│  │ section, page_start, page_end  │                              │
+│  │ embedding + fts                │ ← Hybrid search indices      │
 │  └────────────────────────────────┘                              │
 │                                                                   │
 └──────────────────────────────────────────────────────────────────┘
@@ -62,11 +70,11 @@ that the LLM decides whether to invoke, enabling autonomous research.
 - focused_paper_ids: Researcher can scope search to specific papers
 - rolling_summary: LLM-maintained summary for context inclusion
 
-### RPAbstractData ← → PaperAbstractChunk (1:N)
-- Papers store metadata and high-level info (title, authors, link)
-- Each paper has N chunks (abstract broken into sections)
-- Chunks contain detailed technical content
-- Both have embeddings for vector search
+### RPAbstractData ← → paperAbstractChunk / chunk_data (1:N)
+- RP_abstract_data stores paper-level metadata (title, summary, authors, links, categories)
+- paperAbstractChunk stores abstract-focused chunks and llm_summary
+- chunk_data stores detailed body text + section/page context
+- Both chunk tables support embedding + FTS for hybrid retrieval
 
 ### Search Flow
 
@@ -111,7 +119,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.agent.vector_store import PgVectorStore, SearchTarget, SearchResult
 from app.db.engine import get_session
-from app.db.models import ChatMessage, ChatThread, RPAbstractData, PaperAbstractChunk
+from app.db.models import ChatMessage, ChatThread, Chunk, RPAbstractData, PaperAbstractChunk
 
 
 logger = logging.getLogger(__name__)
@@ -552,8 +560,10 @@ class ResearchTools:
                             RPAbstractData.link,
                             RPAbstractData.primary_category,
                             func.count(PaperAbstractChunk.id).label("chunk_count"),
+                            func.count(Chunk.id).label("body_chunk_count"),
                         )
                         .outerjoin(PaperAbstractChunk, PaperAbstractChunk.rp_abstract_id == RPAbstractData.id)
+                        .outerjoin(Chunk, Chunk.rp_abstract_id == RPAbstractData.id)
                         .where(RPAbstractData.id.in_(thread.focused_paper_ids))
                         .group_by(
                             RPAbstractData.id,
@@ -576,6 +586,7 @@ class ResearchTools:
                     "link": r["link"],
                     "category": r["primary_category"],
                     "chunk_count": int(r["chunk_count"]),
+                    "body_chunk_count": int(r["body_chunk_count"]),
                 }
                 for r in rows
             ]
@@ -588,7 +599,8 @@ class ResearchTools:
                 metadata={
                     "chat_id": chat_id,
                     "focused_count": len(result_dicts),
-                    "total_chunks": sum(r["chunk_count"] for r in result_dicts),
+                    "total_abstract_chunks": sum(r["chunk_count"] for r in result_dicts),
+                    "total_body_chunks": sum(r["body_chunk_count"] for r in result_dicts),
                 },
             )
         except Exception as e:
@@ -624,6 +636,21 @@ class ResearchTools:
         
         if result.metadata.get("chunk_id"):
             d["chunk_id"] = result.metadata["chunk_id"]
+
+        if result.metadata.get("source_table"):
+            d["source_table"] = result.metadata["source_table"]
+
+        if result.metadata.get("section"):
+            d["section"] = result.metadata["section"]
+
+        if result.metadata.get("page_start") is not None:
+            d["page_start"] = result.metadata["page_start"]
+
+        if result.metadata.get("page_end") is not None:
+            d["page_end"] = result.metadata["page_end"]
+
+        if result.metadata.get("doc_id"):
+            d["doc_id"] = result.metadata["doc_id"]
         
         return d
 
@@ -682,8 +709,12 @@ def create_langchain_tools(tools_instance: ResearchTools):
             k: Number of chunks to return (1-20, default 10)
             paper_ids: Comma-separated UUIDs to filter (optional)
         
+        Data Access:
+        - paperAbstractChunk: text, llm_summary, embedding, fts
+        - chunk_data: text, llm_summary, section, page_start, page_end, embedding, fts
+
         Returns:
-            JSON with detailed chunks including full text, summary, relevance score
+            JSON with detailed chunks including source_table, full text, summary, relevance score
         """
         paper_ids_list = None
         if paper_ids:

@@ -7,7 +7,7 @@ import logging
 import sys
 from typing import NoReturn
 
-from sqlalchemy import exists, select, text
+from sqlalchemy import exists, func, select, text, update
 
 from app.db.engine import AsyncSqlEngine, get_session
 from app.db.models import AppUser, ChatThread, Chunk, IntentVector, PaperAbstractChunk, RPAbstractData
@@ -73,6 +73,7 @@ async def verify_required_tables() -> bool:
     required_tables = [
         AppUser.__tablename__,
         RPAbstractData.__tablename__,
+        Chunk.__tablename__,
         PaperAbstractChunk.__tablename__,
         ChatThread.__tablename__,
         IntentVector.__tablename__,
@@ -202,6 +203,50 @@ async def _count_missing_abstract_chunks() -> int:
         return len(result.scalars().all())
 
 
+async def _count_missing_abstract_chunk_summaries() -> int:
+    async with get_session() as session:
+        result = await session.execute(
+            select(func.count(PaperAbstractChunk.id)).where(PaperAbstractChunk.llm_summary.is_(None))
+        )
+        return int(result.scalar_one() or 0)
+
+
+async def _count_missing_body_chunk_summaries() -> int:
+    async with get_session() as session:
+        result = await session.execute(
+            select(func.count(Chunk.id)).where(Chunk.llm_summary.is_(None))
+        )
+        return int(result.scalar_one() or 0)
+
+
+async def _count_missing_chunk_fts() -> tuple[int, int]:
+    async with get_session() as session:
+        abstract_missing = await session.execute(
+            select(func.count(PaperAbstractChunk.id)).where(PaperAbstractChunk.fts.is_(None))
+        )
+        body_missing = await session.execute(
+            select(func.count(Chunk.id)).where(Chunk.fts.is_(None))
+        )
+        return int(abstract_missing.scalar_one() or 0), int(body_missing.scalar_one() or 0)
+
+
+async def _refresh_missing_chunk_fts() -> tuple[int, int]:
+    """Force recomputation of generated FTS columns by touching text fields."""
+    async with get_session() as session:
+        async with session.begin():
+            abstract_res = await session.execute(
+                update(PaperAbstractChunk)
+                .where(PaperAbstractChunk.fts.is_(None))
+                .values(text=PaperAbstractChunk.text)
+            )
+            body_res = await session.execute(
+                update(Chunk)
+                .where(Chunk.fts.is_(None))
+                .values(text=Chunk.text)
+            )
+    return int(abstract_res.rowcount or 0), int(body_res.rowcount or 0)
+
+
 async def reconcile_chunk_data() -> bool:
     """Detect papers with missing chunks and queue the ingestion pipeline.
 
@@ -214,12 +259,28 @@ async def reconcile_chunk_data() -> bool:
     try:
         missing_body = await _count_missing_body_chunks()
         missing_abstract = await _count_missing_abstract_chunks()
+        missing_abstract_summaries = await _count_missing_abstract_chunk_summaries()
+        missing_body_summaries = await _count_missing_body_chunk_summaries()
+        missing_abstract_fts, missing_body_fts = await _count_missing_chunk_fts()
 
         logger.info(
-            "Chunk gap check: missing_body=%d  missing_abstract=%d",
+            "Chunk health check: missing_body=%d missing_abstract=%d missing_abstract_summaries=%d "
+            "missing_body_summaries=%d missing_abstract_fts=%d missing_body_fts=%d",
             missing_body,
             missing_abstract,
+            missing_abstract_summaries,
+            missing_body_summaries,
+            missing_abstract_fts,
+            missing_body_fts,
         )
+
+        if missing_abstract_fts > 0 or missing_body_fts > 0:
+            fixed_abstract_fts, fixed_body_fts = await _refresh_missing_chunk_fts()
+            logger.warning(
+                "⚠ FTS backfill executed: fixed abstract=%d, fixed body=%d",
+                fixed_abstract_fts,
+                fixed_body_fts,
+            )
 
         if missing_body > 0 or missing_abstract > 0:
             # Queue the full ingestion pipeline so workers process the backlog.
@@ -243,8 +304,41 @@ async def reconcile_chunk_data() -> bool:
                 missing_body,
                 missing_abstract,
             )
+        elif missing_abstract_summaries > 0 or missing_body_summaries > 0:
+            from app.worker.tasks.summarize import summarize_chunks
+            from app.worker.tasks.vectors import update_intent_vectors
+            from celery import chain
+
+            chain(
+                summarize_chunks.si(),
+                update_intent_vectors.si(),
+            ).apply_async()
+            logger.warning(
+                "⚠ Queued summarize → intent-vector refresh for missing llm_summary rows "
+                "(abstract=%d, body=%d).",
+                missing_abstract_summaries,
+                missing_body_summaries,
+            )
         else:
             logger.info("✓ No chunk gaps found.")
+
+        # Embedding-null rows cannot be fixed cheaply at startup without a dedicated
+        # embedding backfill workflow; log explicit work order for operators.
+        async with get_session() as session:
+            null_abs_embed = int((await session.execute(
+                select(func.count(PaperAbstractChunk.id)).where(PaperAbstractChunk.embedding.is_(None))
+            )).scalar_one() or 0)
+            null_body_embed = int((await session.execute(
+                select(func.count(Chunk.id)).where(Chunk.embedding.is_(None))
+            )).scalar_one() or 0)
+
+        if null_abs_embed > 0 or null_body_embed > 0:
+            logger.error(
+                "WORK ORDER REQUIRED: found NULL embeddings (paperAbstractChunk=%d, chunk_data=%d). "
+                "Run targeted embedding backfill for affected rows.",
+                null_abs_embed,
+                null_body_embed,
+            )
 
         return True
     except Exception as exc:

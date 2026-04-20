@@ -6,7 +6,9 @@ import logging
 
 from app.db.engine import get_session
 from app.db.repositories.papers import (
+    fetch_unsummarised_body_chunks,
     fetch_unsummarised_abstract_chunks,
+    update_body_chunk_summaries,
     update_abstract_chunk_summaries,
 )
 from app.llm.clients import OllamaLLMClient
@@ -53,5 +55,22 @@ class LLMSummarizer:
                     async with session.begin():
                         await update_abstract_chunk_summaries(session, updates)
                 logger.info("Summarised %d chunks", len(updates))
+
+            while True:
+                async with get_session() as session:
+                    async with session.begin():
+                        rows = await fetch_unsummarised_body_chunks(session, self._batch_size)
+                if not rows:
+                    logger.info("All body chunks summarised")
+                    break
+
+                prompts = [row["text"] for row in rows]
+                summaries = await self._client.generate(prompts)
+                updates = [{"id": row["id"], "llm_summary": s} for row, s in zip(rows, summaries)]
+
+                async with get_session() as session:
+                    async with session.begin():
+                        await update_body_chunk_summaries(session, updates)
+                logger.info("Summarised %d body chunks", len(updates))
 
         logger.info("LLM summarization completed")
