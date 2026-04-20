@@ -1,0 +1,1425 @@
+2026-04-19 18:44:35,903 | INFO | app.db.engine | Primary async engine created (pool=40)
+2026-04-19 18:44:35,905 | INFO | app.db.engine | Readonly async engine created (pool=10)
+2026-04-19 18:45:24,235 | INFO | app.agent.graph | [Agent.startup] Initializing agent...
+2026-04-19 18:45:24,235 | INFO | app.agent.graph | [Agent.startup]   LLM Base URL: http://localhost:11434
+2026-04-19 18:45:24,236 | INFO | app.agent.graph | [Agent.startup]   LLM Model: qwen3:0.6b-q4_K_M
+2026-04-19 18:45:24,238 | INFO | app.agent.graph | [Agent.startup]   Embedder Model: qwen3-embedding:0.6b-fp16
+2026-04-19 18:45:24,239 | INFO | app.agent.graph | [Agent.startup]   Config: enable_llm_routing=True, enable_review=False
+2026-04-19 18:45:24,283 | INFO | app.agent.graph | [Agent.startup] ✓ Checkpointer initialized
+2026-04-19 18:45:24,349 | INFO | app.agent.graph | [Agent.startup] ✓ Graph compiled
+2026-04-19 18:45:24,350 | INFO | app.agent.graph | [Agent.startup] ✓ Research agent fully started
+2026-04-19 18:45:24,351 | INFO | app.agent.graph | [run_stream] Starting: run_id=2c1a0801-b0f5-4bfa-b1ce-d6f3f143db0e, chat_id=e4dbf462-e990-40cf-ad0f-c7e9b4bcdf62, query=tell me about brackerRank Paper
+2026-04-19 18:45:24,380 | INFO | app.agent.graph | [run_stream] Paper ID resolution: thread_stored=[], request_param=None, chosen=[]
+2026-04-19 18:45:24,381 | INFO | app.agent.graph | [run_stream] No focused papers—will search entire knowledge base
+2026-04-19 18:45:25,978 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:45:39,467 | INFO | app.agent.graph | [_rewrite_query] ✓ Rewritten query: . . .
+2026-04-19 18:45:41,277 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:45:44,749 | INFO | app.agent.graph | [_need_context] ✓ Routing decision: need=False
+2026-04-19 18:45:44,832 | INFO | app.agent.graph | [_write] Generating answer with 0 context chunks, 0 history messages
+2026-04-19 18:45:47,390 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:46:02,939 | INFO | app.agent.graph | [_write] ✓ Answer generated (783 chars)
+2026-04-19 18:46:03,190 | INFO | app.agent.graph | [run_stream] ✓ Completed: run_id=2c1a0801-b0f5-4bfa-b1ce-d6f3f143db0e (8 updates)
+2026-04-19 18:48:47,503 | INFO | app.agent.graph | [Agent.startup] Initializing agent...
+2026-04-19 18:48:47,505 | INFO | app.agent.graph | [Agent.startup]   LLM Base URL: http://localhost:11434
+2026-04-19 18:48:47,507 | INFO | app.agent.graph | [Agent.startup]   LLM Model: qwen3:0.6b-q4_K_M
+2026-04-19 18:48:47,509 | INFO | app.agent.graph | [Agent.startup]   Embedder Model: qwen3-embedding:0.6b-fp16
+2026-04-19 18:48:47,511 | INFO | app.agent.graph | [Agent.startup]   Config: enable_llm_routing=True, enable_review=False
+2026-04-19 18:48:47,555 | INFO | app.agent.graph | [Agent.startup] ✓ Checkpointer initialized
+2026-04-19 18:48:47,647 | INFO | app.agent.graph | [Agent.startup] ✓ Graph compiled
+2026-04-19 18:48:47,648 | INFO | app.agent.graph | [Agent.startup] ✓ Research agent fully started
+2026-04-19 18:48:47,650 | INFO | app.agent.graph | [run_stream] Starting: run_id=e60da28a-2c87-46c8-b40a-8312dbf625fa, chat_id=ca431109-bc8e-4179-b33b-a365e85367a1, query=tell me about brackerRank Paper in detail
+2026-04-19 18:48:47,674 | INFO | app.agent.graph | [run_stream] Paper ID resolution: thread_stored=[], request_param=None, chosen=[]
+2026-04-19 18:48:47,677 | INFO | app.agent.graph | [run_stream] No focused papers—will search entire knowledge base
+2026-04-19 18:48:49,895 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:49:08,371 | INFO | app.agent.graph | [_rewrite_query] ✓ Rewritten query: . . . BrackerRank Paper in detail
+2026-04-19 18:49:11,155 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:49:17,285 | INFO | app.agent.graph | [_need_context] ✓ Routing decision: need=True
+2026-04-19 18:49:19,586 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:49:27,635 | INFO | app.agent.graph | [_plan_sources] ✓ Plan: history=False, rag=True
+2026-04-19 18:49:27,677 | INFO | app.agent.graph | [_rag_expand] Expanding query: . . . BrackerRank Paper in detail
+2026-04-19 18:49:27,837 | ERROR | app.agent.graph | [run_stream] ✗ FAILED: KeyError: '"queries"'
+Traceback (most recent call last):
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 824, in run_stream
+        "run_id": run_id,
+    ...<7 lines>...
+    seq = 0
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\main.py", line 2997, in astream
+    async for _ in runner.atick(
+    ...<13 lines>...
+            yield o
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\_runner.py", line 304, in atick
+    await arun_with_retry(
+    ...<15 lines>...
+    )
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\_retry.py", line 163, in arun_with_retry
+    return await task.proc.ainvoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\_internal\_runnable.py", line 705, in ainvoke
+    input = await asyncio.create_task(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        step.ainvoke(input, config, **kwargs), context=context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\_internal\_runnable.py", line 473, in ainvoke
+    ret = await self.afunc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 485, in _rag_expand
+    logger.error(f"[_rag_route] Routing FAILED, defaulting to BOTH: {e}")
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 238, in _rag_expand_prompt
+    return template.format(n_queries=n)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: '"queries"'
+During task with name 'rag_expand' and id '6eb0e6f2-7565-698c-85f4-87ca6730ee5a'
+2026-04-19 18:52:24,883 | INFO | app.db.engine | Primary async engine created (pool=40)
+2026-04-19 18:52:24,885 | INFO | app.db.engine | Readonly async engine created (pool=10)
+2026-04-19 18:52:25,101 | INFO | app.agent.graph | [Agent.startup] Initializing agent...
+2026-04-19 18:52:25,102 | INFO | app.agent.graph | [Agent.startup]   LLM Base URL: http://localhost:11434
+2026-04-19 18:52:25,102 | INFO | app.agent.graph | [Agent.startup]   LLM Model: qwen3:0.6b-q4_K_M
+2026-04-19 18:52:25,103 | INFO | app.agent.graph | [Agent.startup]   Embedder Model: qwen3-embedding:0.6b-fp16
+2026-04-19 18:52:25,103 | INFO | app.agent.graph | [Agent.startup]   Config: enable_llm_routing=True, enable_review=True
+2026-04-19 18:52:25,132 | INFO | app.agent.graph | [Agent.startup] ✓ Checkpointer initialized
+2026-04-19 18:52:25,198 | INFO | app.agent.graph | [Agent.startup] ✓ Graph compiled
+2026-04-19 18:52:25,199 | INFO | app.agent.graph | [Agent.startup] ✓ Research agent fully started
+2026-04-19 18:52:25,199 | INFO | app.agent.graph | [run_stream] Starting: run_id=62e86257-bae6-4623-ba69-2e5a36d27c93, chat_id=78638c63-8726-47a9-bc34-75c0436a6881, query=tell me about brackerRank Paper in detail
+2026-04-19 18:52:25,225 | INFO | app.agent.graph | [run_stream] Paper ID resolution: thread_stored=[], request_param=None, chosen=[]
+2026-04-19 18:52:25,226 | INFO | app.agent.graph | [run_stream] No focused papers—will search entire knowledge base
+2026-04-19 18:52:26,778 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:52:40,272 | INFO | app.agent.graph | [_rewrite_query] ✓ Rewritten query: . . . BrackerRank Paper in detail
+2026-04-19 18:52:42,169 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:52:46,967 | INFO | app.agent.graph | [_need_context] ✓ Routing decision: need=True
+2026-04-19 18:52:48,684 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:52:56,483 | INFO | app.agent.graph | [_plan_sources] ✓ Plan: history=False, rag=True
+2026-04-19 18:52:56,524 | INFO | app.agent.graph | [_rag_expand] Expanding query: . . . BrackerRank Paper in detail
+2026-04-19 18:52:58,016 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:53:07,968 | INFO | app.agent.graph | [_rag_expand] ✓ Generated 3 queries
+2026-04-19 18:53:07,987 | INFO | app.agent.graph | [_rag_retrieve] Hybrid search (3 queries, target=chunks) with paper filter: none
+2026-04-19 18:53:07,989 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q1. BrackerRank Paper in detail
+2026-04-19 18:53:34,840 | ERROR | app.agent.graph | [run_stream] ✗ FAILED: ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column paperAbstractChunk.fts does not exist
+[SQL: SELECT "BrieflyAI"."paperAbstractChunk".id, "BrieflyAI"."paperAbstractChunk".rp_abstract_id, "BrieflyAI"."paperAbstractChunk".text, "BrieflyAI"."paperAbstractChunk".llm_summary, "BrieflyAI"."RP_abstract_data".title, "BrieflyAI"."RP_abstract_data".link, "BrieflyAI"."RP_abstract_data".authors, ts_rank("BrieflyAI"."paperAbstractChunk".fts, plainto_tsquery($1::REGCONFIG, $2::VARCHAR)) AS fts_rank 
+FROM "BrieflyAI"."paperAbstractChunk" JOIN "BrieflyAI"."RP_abstract_data" ON "BrieflyAI"."RP_abstract_data".id = "BrieflyAI"."paperAbstractChunk".rp_abstract_id 
+WHERE "BrieflyAI"."paperAbstractChunk".fts @@ plainto_tsquery($3::REGCONFIG, $4::VARCHAR) ORDER BY fts_rank DESC 
+ LIMIT $5::INTEGER]
+[parameters: ('english', 'q1. BrackerRank Paper in detail', 'english', 'q1. BrackerRank Paper in detail', 12)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+Traceback (most recent call last):
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 526, in _prepare_and_execute
+    prepared_stmt, attributes = await adapt_connection._prepare(
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        operation, self._invalidate_schema_cache_asof
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 773, in _prepare
+    prepared_stmt = await self._connection.prepare(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        operation, name=self._prepared_statement_name_func()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\asyncpg\connection.py", line 638, in prepare
+    return await self._prepare(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\asyncpg\connection.py", line 657, in _prepare
+    stmt = await self._get_statement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\asyncpg\connection.py", line 443, in _get_statement
+    statement = await self._protocol.prepare(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "asyncpg/protocol/protocol.pyx", line 165, in prepare
+asyncpg.exceptions.UndefinedColumnError: column paperAbstractChunk.fts does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._prepare_and_execute(operation, parameters)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.dialects.postgresql.asyncpg.AsyncAdapt_asyncpg_dbapi.ProgrammingError: <class 'asyncpg.exceptions.UndefinedColumnError'>: column paperAbstractChunk.fts does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 824, in run_stream
+    async for update in self._app.astream(state_in, config=config, stream_mode="updates"):
+    ...<7 lines>...
+        yield payload
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\main.py", line 2997, in astream
+    async for _ in runner.atick(
+    ...<13 lines>...
+            yield o
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\_runner.py", line 304, in atick
+    await arun_with_retry(
+    ...<15 lines>...
+    )
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\_retry.py", line 163, in arun_with_retry
+    return await task.proc.ainvoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\_internal\_runnable.py", line 705, in ainvoke
+    input = await asyncio.create_task(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        step.ainvoke(input, config, **kwargs), context=context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\_internal\_runnable.py", line 473, in ainvoke
+    ret = await self.afunc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 524, in _rag_retrieve
+    results = await self.vs.search(
+              ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\vector_store.py", line 145, in search
+    return await self._search_chunks(session, query, k, paper_ids, use_hybrid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\vector_store.py", line 236, in _search_chunks
+    keyword_results = await self._keyword_search_chunks(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        session, query, k, paper_ids
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\vector_store.py", line 439, in _keyword_search_chunks
+    rows = (await session.execute(stmt)).mappings().all()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\ext\asyncio\session.py", line 449, in execute
+    result = await greenlet_spawn(
+             ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 201, in greenlet_spawn
+    result = context.throw(*sys.exc_info())
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ~~~~~~~~~~~~~~~~~~~~~~^
+        statement,
+        ^^^^^^^^^^
+    ...<4 lines>...
+        _add_event=_add_event,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\orm\session.py", line 2249, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self,
+        ^^^^^
+    ...<4 lines>...
+        conn,
+        ^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\orm\context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+        statement, params or {}, execution_options=execution_options
+    )
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\engine\base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\engine\default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 585, in execute
+    self._adapt_connection.await_(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self._prepare_and_execute(operation, parameters)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\util\_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 563, in _prepare_and_execute
+    self._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 513, in _handle_exception
+    self._adapt_connection._handle_exception(error)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\sqlalchemy\dialects\postgresql\asyncpg.py", line 797, in _handle_exception
+    raise translated_error from error
+sqlalchemy.exc.ProgrammingError: (sqlalchemy.dialects.postgresql.asyncpg.ProgrammingError) <class 'asyncpg.exceptions.UndefinedColumnError'>: column paperAbstractChunk.fts does not exist
+[SQL: SELECT "BrieflyAI"."paperAbstractChunk".id, "BrieflyAI"."paperAbstractChunk".rp_abstract_id, "BrieflyAI"."paperAbstractChunk".text, "BrieflyAI"."paperAbstractChunk".llm_summary, "BrieflyAI"."RP_abstract_data".title, "BrieflyAI"."RP_abstract_data".link, "BrieflyAI"."RP_abstract_data".authors, ts_rank("BrieflyAI"."paperAbstractChunk".fts, plainto_tsquery($1::REGCONFIG, $2::VARCHAR)) AS fts_rank 
+FROM "BrieflyAI"."paperAbstractChunk" JOIN "BrieflyAI"."RP_abstract_data" ON "BrieflyAI"."RP_abstract_data".id = "BrieflyAI"."paperAbstractChunk".rp_abstract_id 
+WHERE "BrieflyAI"."paperAbstractChunk".fts @@ plainto_tsquery($3::REGCONFIG, $4::VARCHAR) ORDER BY fts_rank DESC 
+ LIMIT $5::INTEGER]
+[parameters: ('english', 'q1. BrackerRank Paper in detail', 'english', 'q1. BrackerRank Paper in detail', 12)]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+During task with name 'rag_retrieve' and id '5339c5c8-6af0-5ea4-b790-faba9e9dcb98'
+2026-04-19 18:57:32,023 | INFO | app.db.engine | Primary async engine created (pool=40)
+2026-04-19 18:57:32,024 | INFO | app.db.engine | Readonly async engine created (pool=10)
+2026-04-19 18:57:32,348 | INFO | app.agent.graph | [Agent.startup] Initializing agent...
+2026-04-19 18:57:32,349 | INFO | app.agent.graph | [Agent.startup]   LLM Base URL: http://localhost:11434
+2026-04-19 18:57:32,350 | INFO | app.agent.graph | [Agent.startup]   LLM Model: qwen3:0.6b-q4_K_M
+2026-04-19 18:57:32,351 | INFO | app.agent.graph | [Agent.startup]   Embedder Model: qwen3-embedding:0.6b-fp16
+2026-04-19 18:57:32,352 | INFO | app.agent.graph | [Agent.startup]   Config: enable_llm_routing=True, enable_review=True
+2026-04-19 18:57:32,406 | INFO | app.agent.graph | [Agent.startup] ✓ Checkpointer initialized
+2026-04-19 18:57:32,532 | INFO | app.agent.graph | [Agent.startup] ✓ Graph compiled
+2026-04-19 18:57:32,533 | INFO | app.agent.graph | [Agent.startup] ✓ Research agent fully started
+2026-04-19 18:57:32,534 | INFO | app.agent.graph | [run_stream] Starting: run_id=9d3bc6aa-0efa-4cc0-8d50-eb75bdd148d3, chat_id=51aa4eb9-cf7b-47e1-b267-416cdf1e5400, query=tell me about brackerRank Paper in detail
+2026-04-19 18:57:32,575 | INFO | app.agent.graph | [run_stream] Paper ID resolution: thread_stored=[], request_param=None, chosen=[]
+2026-04-19 18:57:32,576 | INFO | app.agent.graph | [run_stream] No focused papers—will search entire knowledge base
+2026-04-19 18:57:38,998 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:57:56,229 | INFO | app.agent.graph | [_rewrite_query] ✓ Rewritten query: . . . BrackerRank Paper in detail
+2026-04-19 18:57:58,371 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:58:03,525 | INFO | app.agent.graph | [_need_context] ✓ Routing decision: need=True
+2026-04-19 18:58:05,438 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:58:13,666 | INFO | app.agent.graph | [_plan_sources] ✓ Plan: history=False, rag=True
+2026-04-19 18:58:13,713 | INFO | app.agent.graph | [_rag_expand] Expanding query: . . . BrackerRank Paper in detail
+2026-04-19 18:58:15,310 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:58:25,403 | INFO | app.agent.graph | [_rag_expand] ✓ Generated 3 queries
+2026-04-19 18:58:25,429 | INFO | app.agent.graph | [_rag_retrieve] Hybrid search (3 queries, target=chunks) with paper filter: none
+2026-04-19 18:58:25,431 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q1. BrackerRank Paper in detail
+2026-04-19 18:58:26,138 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q2. Research on BrackerRank Paper methodology
+2026-04-19 18:58:26,489 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q3. Analysis of BrackerRank Paper's quantitative aspects
+2026-04-19 18:58:26,838 | INFO | app.agent.graph | [_rag_retrieve] ✓ Total 3 results from hybrid search across 3 queries
+2026-04-19 18:58:26,932 | INFO | app.agent.graph | [_write] Generating answer with 1 context chunks, 0 history messages
+2026-04-19 18:58:34,488 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:58:49,040 | INFO | app.agent.graph | [_write] ✓ Answer generated (197 chars)
+2026-04-19 18:58:49,066 | INFO | app.agent.graph | [_review] Running quality review...
+2026-04-19 18:58:51,367 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:59:01,630 | INFO | app.agent.graph | [_review] ✓ Review: approved=False
+2026-04-19 18:59:03,743 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:59:19,453 | INFO | app.agent.graph | [_rewrite_query] ✓ Rewritten query: . . . BrackerRank Paper in detail
+2026-04-19 18:59:21,645 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:59:26,750 | INFO | app.agent.graph | [_need_context] ✓ Routing decision: need=True
+2026-04-19 18:59:28,832 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:59:38,848 | INFO | app.agent.graph | [_plan_sources] ✓ Plan: history=False, rag=True
+2026-04-19 18:59:38,891 | INFO | app.agent.graph | [_rag_expand] Expanding query: . . . BrackerRank Paper in detail
+2026-04-19 18:59:40,615 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 18:59:50,793 | INFO | app.agent.graph | [_rag_expand] ✓ Generated 3 queries
+2026-04-19 18:59:50,820 | INFO | app.agent.graph | [_rag_retrieve] Hybrid search (3 queries, target=chunks) with paper filter: none
+2026-04-19 18:59:50,823 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q1. BrackerRank Paper in detail
+2026-04-19 18:59:51,396 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q2. Research on BrackerRank Paper methodology
+2026-04-19 18:59:51,757 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q3. Analysis of BrackerRank Paper's quantitative aspects
+2026-04-19 18:59:52,119 | INFO | app.agent.graph | [_rag_retrieve] ✓ Total 3 results from hybrid search across 3 queries
+2026-04-19 18:59:52,188 | INFO | app.agent.graph | [_write] Generating answer with 1 context chunks, 0 history messages
+2026-04-19 18:59:59,358 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 19:00:10,338 | INFO | app.agent.graph | [_write] ✓ Answer generated (197 chars)
+2026-04-19 19:00:10,361 | INFO | app.agent.graph | [_review] Running quality review...
+2026-04-19 19:00:12,555 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 19:00:22,551 | INFO | app.agent.graph | [_review] ✓ Review: approved=True
+2026-04-19 19:00:22,813 | INFO | app.agent.graph | [run_stream] ✓ Completed: run_id=9d3bc6aa-0efa-4cc0-8d50-eb75bdd148d3 (25 updates)
+2026-04-19 21:06:49,579 | INFO | app.agent.graph | [Agent.startup] Initializing agent...
+2026-04-19 21:06:49,583 | INFO | app.agent.graph | [Agent.startup]   LLM Base URL: http://localhost:11434
+2026-04-19 21:06:49,586 | INFO | app.agent.graph | [Agent.startup]   LLM Model: qwen3:0.6b-q4_K_M
+2026-04-19 21:06:49,591 | INFO | app.agent.graph | [Agent.startup]   Embedder Model: qwen3-embedding:0.6b-fp16
+2026-04-19 21:06:49,595 | INFO | app.agent.graph | [Agent.startup]   Config: enable_llm_routing=True, enable_review=True
+2026-04-19 21:06:50,114 | INFO | app.agent.graph | [Agent.startup] ✓ Checkpointer initialized
+2026-04-19 21:06:50,525 | INFO | app.agent.graph | [Agent.startup] ✓ Graph compiled
+2026-04-19 21:06:50,529 | INFO | app.agent.graph | [Agent.startup] ✓ Research agent fully started
+2026-04-19 21:06:50,531 | INFO | app.agent.graph | [run_stream] Starting: run_id=eedee831-3656-49f2-9f5f-5dc021b24037, chat_id=44268064-142c-40f3-b6fc-cab9b8d318be, query=tell me about Immune2V Paper in detail
+2026-04-19 21:06:50,661 | INFO | app.agent.graph | [run_stream] Paper ID resolution: thread_stored=[], request_param=None, chosen=[]
+2026-04-19 21:06:50,663 | INFO | app.agent.graph | [run_stream] No focused papers—will search entire knowledge base
+2026-04-19 21:07:08,128 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:07:39,172 | INFO | app.agent.graph | [_rewrite_query] ✓ Rewritten query: . . . Immune2V Paper
+2026-04-19 21:07:42,926 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:07:59,507 | INFO | app.agent.graph | [_need_context] ✓ Routing decision: need=True
+2026-04-19 21:08:04,551 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:08:49,988 | INFO | app.agent.graph | [_plan_sources] ✓ Plan: history=False, rag=True
+2026-04-19 21:08:50,047 | INFO | app.agent.graph | [_rag_expand] Expanding query: . . . Immune2V Paper
+2026-04-19 21:08:52,959 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:09:42,348 | INFO | app.agent.graph | [_rag_expand] ✓ Generated 3 queries
+2026-04-19 21:09:42,376 | INFO | app.agent.graph | [_rag_retrieve] Hybrid search (3 queries, target=chunks) with paper filter: none
+2026-04-19 21:09:42,379 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q1
+2026-04-19 21:10:00,808 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q2
+2026-04-19 21:10:04,095 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q3
+2026-04-19 21:10:05,346 | INFO | app.agent.graph | [_rag_retrieve] ✓ Total 18 results from hybrid search across 3 queries
+2026-04-19 21:10:05,582 | INFO | app.agent.graph | [_write] Generating answer with 6 context chunks, 0 history messages
+2026-04-19 21:11:29,947 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:16:17,905 | INFO | app.db.engine | Primary async engine created (pool=40)
+2026-04-19 21:16:17,908 | INFO | app.db.engine | Readonly async engine created (pool=10)
+2026-04-19 21:16:18,506 | INFO | app.agent.graph | [Agent.startup] Initializing agent...
+2026-04-19 21:16:18,509 | INFO | app.agent.graph | [Agent.startup]   LLM Base URL: http://ollama:11434
+2026-04-19 21:16:18,510 | INFO | app.agent.graph | [Agent.startup]   LLM Model: qwen3:0.6b-q4_K_M
+2026-04-19 21:16:18,516 | INFO | app.agent.graph | [Agent.startup]   Embedder Model: qwen3-embedding:0.6b-fp16
+2026-04-19 21:16:18,519 | INFO | app.agent.graph | [Agent.startup]   Config: enable_llm_routing=True, enable_review=False
+2026-04-19 21:16:18,682 | INFO | app.agent.graph | [Agent.startup] ✓ Checkpointer initialized
+2026-04-19 21:16:18,912 | INFO | app.agent.graph | [Agent.startup] ✓ Graph compiled
+2026-04-19 21:16:18,922 | INFO | app.agent.graph | [Agent.startup] ✓ Research agent fully started
+2026-04-19 21:16:18,927 | INFO | app.agent.graph | [run_stream] Starting: run_id=ae6d0a1b-673b-4f1d-b573-f8b23a54dfe0, chat_id=0d780b9f-b2fc-4df6-991f-5e598f43c470, query=tell me about Immune2V Paper in detail
+2026-04-19 21:16:19,010 | INFO | app.agent.graph | [run_stream] Paper ID resolution: thread_stored=[], request_param=None, chosen=[]
+2026-04-19 21:16:19,012 | INFO | app.agent.graph | [run_stream] No focused papers—will search entire knowledge base
+2026-04-19 21:16:21,942 | ERROR | app.agent.graph | [_rewrite_query] Rewrite failed: ConnectError: [Errno 11001] getaddrinfo failed
+Traceback (most recent call last):
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        pool_request.request
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection.py", line 101, in handle_async_request
+    raise exc
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection.py", line 78, in handle_async_request
+    stream = await self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection.py", line 124, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_backends\auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_backends\anyio.py", line 113, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 342, in _rewrite_query
+    msg = await self._llm_router.ainvoke(prompt)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 425, in ainvoke
+    llm_result = await self.agenerate_prompt(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1134, in agenerate_prompt
+    return await self.agenerate(
+           ^^^^^^^^^^^^^^^^^^^^^
+        prompt_messages, stop=stop, callbacks=callbacks, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1092, in agenerate
+    raise exceptions[0]
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1361, in _agenerate_with_cache
+    result = await self._agenerate(
+             ^^^^^^^^^^^^^^^^^^^^^^
+        messages, stop=stop, run_manager=run_manager, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 1208, in _agenerate
+    final_chunk = await self._achat_stream_with_aggregation(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        messages, stop, run_manager, verbose=self.verbose, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 991, in _achat_stream_with_aggregation
+    async for chunk in self._aiterate_over_stream(messages, stop, **kwargs):
+    ...<9 lines>...
+            )
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 1131, in _aiterate_over_stream
+    async for stream_resp in self._acreate_chat_stream(messages, stop, **kwargs):
+    ...<52 lines>...
+            yield chunk
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 937, in _acreate_chat_stream
+    async for part in await self._async_client.chat(**chat_params):
+        yield part
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\ollama\_client.py", line 752, in inner
+    async with self._client.stream(*args, **kwargs) as r:
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1583, in stream
+    response = await self.send(
+               ^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-04-19 21:16:24,632 | ERROR | app.agent.graph | [_need_context] ERROR: ConnectError: [Errno 11001] getaddrinfo failed
+Traceback (most recent call last):
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        pool_request.request
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection.py", line 101, in handle_async_request
+    raise exc
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection.py", line 78, in handle_async_request
+    stream = await self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection.py", line 124, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_backends\auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_backends\anyio.py", line 113, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 406, in _need_context
+    msg = await self._llm_router.ainvoke(prompt)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 425, in ainvoke
+    llm_result = await self.agenerate_prompt(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1134, in agenerate_prompt
+    return await self.agenerate(
+           ^^^^^^^^^^^^^^^^^^^^^
+        prompt_messages, stop=stop, callbacks=callbacks, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1092, in agenerate
+    raise exceptions[0]
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1361, in _agenerate_with_cache
+    result = await self._agenerate(
+             ^^^^^^^^^^^^^^^^^^^^^^
+        messages, stop=stop, run_manager=run_manager, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 1208, in _agenerate
+    final_chunk = await self._achat_stream_with_aggregation(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        messages, stop, run_manager, verbose=self.verbose, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 991, in _achat_stream_with_aggregation
+    async for chunk in self._aiterate_over_stream(messages, stop, **kwargs):
+    ...<9 lines>...
+            )
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 1131, in _aiterate_over_stream
+    async for stream_resp in self._acreate_chat_stream(messages, stop, **kwargs):
+    ...<52 lines>...
+            yield chunk
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 937, in _acreate_chat_stream
+    async for part in await self._async_client.chat(**chat_params):
+        yield part
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\ollama\_client.py", line 752, in inner
+    async with self._client.stream(*args, **kwargs) as r:
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1583, in stream
+    response = await self.send(
+               ^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-04-19 21:16:26,971 | ERROR | app.agent.graph | [_plan_sources] ERROR: ConnectError: [Errno 11001] getaddrinfo failed
+Traceback (most recent call last):
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        pool_request.request
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection.py", line 101, in handle_async_request
+    raise exc
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection.py", line 78, in handle_async_request
+    stream = await self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection.py", line 124, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_backends\auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_backends\anyio.py", line 113, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 466, in _plan_sources
+    msg = await self._llm_router.ainvoke(prompt)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 425, in ainvoke
+    llm_result = await self.agenerate_prompt(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1134, in agenerate_prompt
+    return await self.agenerate(
+           ^^^^^^^^^^^^^^^^^^^^^
+        prompt_messages, stop=stop, callbacks=callbacks, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1092, in agenerate
+    raise exceptions[0]
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1361, in _agenerate_with_cache
+    result = await self._agenerate(
+             ^^^^^^^^^^^^^^^^^^^^^^
+        messages, stop=stop, run_manager=run_manager, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 1208, in _agenerate
+    final_chunk = await self._achat_stream_with_aggregation(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        messages, stop, run_manager, verbose=self.verbose, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 991, in _achat_stream_with_aggregation
+    async for chunk in self._aiterate_over_stream(messages, stop, **kwargs):
+    ...<9 lines>...
+            )
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 1131, in _aiterate_over_stream
+    async for stream_resp in self._acreate_chat_stream(messages, stop, **kwargs):
+    ...<52 lines>...
+            yield chunk
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 937, in _acreate_chat_stream
+    async for part in await self._async_client.chat(**chat_params):
+        yield part
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\ollama\_client.py", line 752, in inner
+    async with self._client.stream(*args, **kwargs) as r:
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1583, in stream
+    response = await self.send(
+               ^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-04-19 21:16:27,063 | INFO | app.agent.graph | [_rag_expand] Expanding query: tell me about Immune2V Paper in detail
+2026-04-19 21:16:29,348 | ERROR | app.agent.graph | [_rag_expand] ERROR: ConnectError: [Errno 11001] getaddrinfo failed
+Traceback (most recent call last):
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 394, in handle_async_request
+    resp = await self._pool.handle_async_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection_pool.py", line 256, in handle_async_request
+    raise exc from None
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection_pool.py", line 236, in handle_async_request
+    response = await connection.handle_async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        pool_request.request
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection.py", line 101, in handle_async_request
+    raise exc
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection.py", line 78, in handle_async_request
+    stream = await self._connect(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_async\connection.py", line 124, in _connect
+    stream = await self._network_backend.connect_tcp(**kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_backends\auto.py", line 31, in connect_tcp
+    return await self._backend.connect_tcp(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_backends\anyio.py", line 113, in connect_tcp
+    with map_exceptions(exc_map):
+         ~~~~~~~~~~~~~~^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpcore\_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 539, in _rag_expand
+    msg = await self._llm_router.ainvoke(prompt)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 425, in ainvoke
+    llm_result = await self.agenerate_prompt(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<8 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1134, in agenerate_prompt
+    return await self.agenerate(
+           ^^^^^^^^^^^^^^^^^^^^^
+        prompt_messages, stop=stop, callbacks=callbacks, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1092, in agenerate
+    raise exceptions[0]
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1361, in _agenerate_with_cache
+    result = await self._agenerate(
+             ^^^^^^^^^^^^^^^^^^^^^^
+        messages, stop=stop, run_manager=run_manager, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 1208, in _agenerate
+    final_chunk = await self._achat_stream_with_aggregation(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        messages, stop, run_manager, verbose=self.verbose, **kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 991, in _achat_stream_with_aggregation
+    async for chunk in self._aiterate_over_stream(messages, stop, **kwargs):
+    ...<9 lines>...
+            )
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 1131, in _aiterate_over_stream
+    async for stream_resp in self._acreate_chat_stream(messages, stop, **kwargs):
+    ...<52 lines>...
+            yield chunk
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langchain_ollama\chat_models.py", line 937, in _acreate_chat_stream
+    async for part in await self._async_client.chat(**chat_params):
+        yield part
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\ollama\_client.py", line 752, in inner
+    async with self._client.stream(*args, **kwargs) as r:
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1583, in stream
+    response = await self.send(
+               ^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1629, in send
+    response = await self._send_handling_auth(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1657, in _send_handling_auth
+    response = await self._send_handling_redirects(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1694, in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_client.py", line 1730, in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 393, in handle_async_request
+    with map_httpcore_exceptions():
+         ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\httpx\_transports\default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno 11001] getaddrinfo failed
+2026-04-19 21:16:29,389 | INFO | app.agent.graph | [_rag_retrieve] Hybrid search (3 queries, target=chunks) with paper filter: none
+2026-04-19 21:16:29,391 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: tell me about Immune2V Paper in detail
+2026-04-19 21:16:37,799 | ERROR | app.agent.graph | [run_stream] ✗ FAILED: ClientConnectorDNSError: Cannot connect to host ollama:11434 ssl:default [getaddrinfo failed]
+Traceback (most recent call last):
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1574, in _create_direct_connection
+    hosts = await self._resolve_host(host, port, traces=traces)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1190, in _resolve_host
+    return await asyncio.shield(resolved_host_task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1221, in _resolve_host_with_throttle
+    addrs = await self._resolver.resolve(host, port, family=self._family)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\resolver.py", line 40, in resolve
+    infos = await self._loop.getaddrinfo(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\asyncio\base_events.py", line 936, in getaddrinfo
+    return await self.run_in_executor(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        None, getaddr_func, host, port, family, type, proto, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\socket.py", line 983, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 884, in run_stream
+    async for update in self._app.astream(state_in, config=config, stream_mode="updates"):
+    ...<7 lines>...
+        yield payload
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\main.py", line 2997, in astream
+    async for _ in runner.atick(
+    ...<13 lines>...
+            yield o
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\_runner.py", line 304, in atick
+    await arun_with_retry(
+    ...<15 lines>...
+    )
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\_retry.py", line 163, in arun_with_retry
+    return await task.proc.ainvoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\_internal\_runnable.py", line 705, in ainvoke
+    input = await asyncio.create_task(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        step.ainvoke(input, config, **kwargs), context=context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\_internal\_runnable.py", line 473, in ainvoke
+    ret = await self.afunc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 570, in _rag_retrieve
+    results = await self.vs.search(
+              ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\vector_store.py", line 145, in search
+    return await self._search_chunks(session, query, k, paper_ids, use_hybrid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\vector_store.py", line 224, in _search_chunks
+    query_vec = await embed_query(query)
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\services\embeddings.py", line 26, in embed_query
+    vec = await _get_embedder().embed([text])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\llm\clients.py", line 37, in embed
+    results = await asyncio.gather(*tasks)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\llm\clients.py", line 48, in _embed_one
+    async with session.post(
+               ~~~~~~~~~~~~^
+        self._endpoint, json={"model": self._model, "prompt": text}
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ) as resp:
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\client.py", line 1521, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\client.py", line 788, in _request
+    resp = await handler(req)
+           ^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\client.py", line 742, in _connect_and_send_request
+    conn = await self._connector.connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        req, traces=traces, timeout=real_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 672, in connect
+    proto = await self._create_connection(req, traces, timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1251, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1580, in _create_direct_connection
+    raise ClientConnectorDNSError(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorDNSError: Cannot connect to host ollama:11434 ssl:default [getaddrinfo failed]
+During task with name 'rag_retrieve' and id '00c1c35a-d75f-7dab-e5fc-56e56d74123e'
+2026-04-19 21:17:35,149 | INFO | app.db.engine | Primary async engine created (pool=40)
+2026-04-19 21:17:35,154 | INFO | app.db.engine | Readonly async engine created (pool=10)
+2026-04-19 21:17:35,603 | INFO | app.agent.graph | [Agent.startup] Initializing agent...
+2026-04-19 21:17:35,605 | INFO | app.agent.graph | [Agent.startup]   LLM Base URL: http://localhost:11434
+2026-04-19 21:17:35,606 | INFO | app.agent.graph | [Agent.startup]   LLM Model: qwen3:0.6b-q4_K_M
+2026-04-19 21:17:35,608 | INFO | app.agent.graph | [Agent.startup]   Embedder Model: qwen3-embedding:0.6b-fp16
+2026-04-19 21:17:35,612 | INFO | app.agent.graph | [Agent.startup]   Config: enable_llm_routing=True, enable_review=False
+2026-04-19 21:17:35,707 | INFO | app.agent.graph | [Agent.startup] ✓ Checkpointer initialized
+2026-04-19 21:17:35,881 | INFO | app.agent.graph | [Agent.startup] ✓ Graph compiled
+2026-04-19 21:17:35,883 | INFO | app.agent.graph | [Agent.startup] ✓ Research agent fully started
+2026-04-19 21:17:35,885 | INFO | app.agent.graph | [run_stream] Starting: run_id=6e476275-1769-4865-85da-d99855403f35, chat_id=97a09265-8a5f-4b93-b86b-25f90a8dbab5, query=tell me about Immune2V Paper in detail
+2026-04-19 21:17:35,969 | INFO | app.agent.graph | [run_stream] Paper ID resolution: thread_stored=[], request_param=None, chosen=[]
+2026-04-19 21:17:35,972 | INFO | app.agent.graph | [run_stream] No focused papers—will search entire knowledge base
+2026-04-19 21:17:41,426 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:18:07,266 | INFO | app.agent.graph | [_rewrite_query] ✓ Rewritten query: . . . Immune2V Paper
+2026-04-19 21:18:11,649 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:18:24,318 | INFO | app.agent.graph | [_need_context] ✓ Routing decision: need=True
+2026-04-19 21:18:27,907 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:19:07,451 | INFO | app.agent.graph | [_plan_sources] ✓ Plan: history=False, rag=True
+2026-04-19 21:19:07,504 | INFO | app.agent.graph | [_rag_expand] Expanding query: . . . Immune2V Paper
+2026-04-19 21:19:11,135 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:20:00,006 | INFO | app.agent.graph | [_rag_expand] ✓ Generated 3 queries
+2026-04-19 21:20:00,036 | INFO | app.agent.graph | [_rag_retrieve] Hybrid search (3 queries, target=chunks) with paper filter: none
+2026-04-19 21:20:00,039 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q1
+2026-04-19 21:20:16,905 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q2
+2026-04-19 21:20:17,917 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q3
+2026-04-19 21:20:19,250 | INFO | app.agent.graph | [_rag_retrieve] ✓ Total 18 results from hybrid search across 3 queries
+2026-04-19 21:20:19,519 | INFO | app.agent.graph | [_write] Generating answer with 6 context chunks, 0 history messages
+2026-04-19 21:21:35,539 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:23:53,548 | INFO | app.agent.graph | [_write] ✓ Answer generated (1416 chars)
+2026-04-19 21:23:53,913 | INFO | app.agent.graph | [run_stream] ✓ Completed: run_id=6e476275-1769-4865-85da-d99855403f35 (12 updates)
+2026-04-19 21:34:36,083 | INFO | app.agent.graph | [Agent.startup] Initializing agent...
+2026-04-19 21:34:36,084 | INFO | app.agent.graph | [Agent.startup]   LLM Base URL: http://localhost:11434
+2026-04-19 21:34:36,085 | INFO | app.agent.graph | [Agent.startup]   LLM Model: qwen3:0.6b-q4_K_M
+2026-04-19 21:34:36,086 | INFO | app.agent.graph | [Agent.startup]   Embedder Model: qwen3-embedding:0.6b-fp16
+2026-04-19 21:34:36,086 | INFO | app.agent.graph | [Agent.startup]   Config: enable_llm_routing=True, enable_review=False
+2026-04-19 21:34:36,156 | INFO | app.agent.graph | [Agent.startup] ✓ Checkpointer initialized
+2026-04-19 21:34:36,229 | INFO | app.agent.graph | [Agent.startup] ✓ Graph compiled
+2026-04-19 21:34:36,230 | INFO | app.agent.graph | [Agent.startup] ✓ Research agent fully started
+2026-04-19 21:34:36,231 | INFO | app.agent.graph | [run_stream] Starting: run_id=a5d36b1a-2b00-4b1f-b43e-e25f93934c72, chat_id=a7322309-a338-4cdc-91ce-c01e6a88cedb, query=tell me about Immune2V Paper in detail
+2026-04-19 21:34:36,258 | INFO | app.agent.graph | [run_stream] Paper ID resolution: thread_stored=['019d8a2e-fcef-7d19-a3ac-29d88f949832'], request_param=None, chosen=['019d8a2e-fcef-7d19-a3ac-29d88f949832']
+2026-04-19 21:34:36,259 | INFO | app.agent.graph | [run_stream] ✓ Will filter RAG results to 1 focused paper(s)
+2026-04-19 21:34:41,589 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:34:54,934 | INFO | app.agent.graph | [_rewrite_query] ✓ Rewritten query: . . . Immune2V Paper
+2026-04-19 21:34:57,092 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:35:01,881 | INFO | app.agent.graph | [_need_context] ✓ Routing decision: need=True
+2026-04-19 21:35:04,001 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:35:18,697 | INFO | app.agent.graph | [_plan_sources] ✓ Plan: history=False, rag=True
+2026-04-19 21:35:18,733 | INFO | app.agent.graph | [_rag_expand] Expanding query: . . . Immune2V Paper
+2026-04-19 21:35:20,368 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:35:35,256 | INFO | app.agent.graph | [_rag_expand] ✓ Generated 3 queries
+2026-04-19 21:35:35,276 | INFO | app.agent.graph | [_rag_retrieve] Hybrid search (3 queries, target=chunks) with paper filter: 1
+2026-04-19 21:35:35,278 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q1
+2026-04-19 21:35:41,715 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q2
+2026-04-19 21:35:42,157 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: q3
+2026-04-19 21:35:42,488 | INFO | app.agent.graph | [_rag_retrieve] ✓ Total 3 results from hybrid search across 3 queries
+2026-04-19 21:35:42,577 | INFO | app.agent.graph | [_write] Generating answer with 1 context chunks, 0 history messages
+2026-04-19 21:35:50,691 | INFO | httpx | HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 200 OK"
+2026-04-19 21:36:21,178 | INFO | app.agent.graph | [_write] ✓ Answer generated (1274 chars)
+2026-04-19 21:36:21,488 | INFO | app.agent.graph | [run_stream] ✓ Completed: run_id=a5d36b1a-2b00-4b1f-b43e-e25f93934c72 (12 updates)
+2026-04-20 01:03:50,251 | INFO | app.db.engine | Primary async engine created (pool=40)
+2026-04-20 01:03:50,255 | INFO | app.db.engine | Readonly async engine created (pool=10)
+2026-04-20 01:03:51,003 | INFO | app.agent.graph | [Agent.startup] Initializing agent...
+2026-04-20 01:03:51,005 | INFO | app.agent.graph | [Agent.startup]   LLM Base URL: http://ollama:11434
+2026-04-20 01:03:51,008 | INFO | app.agent.graph | [Agent.startup]   LLM Model: qwen3:0.6b-q4_K_M
+2026-04-20 01:03:51,010 | INFO | app.agent.graph | [Agent.startup]   Default LLM Provider: ollama
+2026-04-20 01:03:51,012 | INFO | app.agent.graph | [Agent.startup]   Available Providers: ['ollama']
+2026-04-20 01:03:51,014 | INFO | app.agent.graph | [Agent.startup]   Embedder Model: qwen3-embedding:0.6b-fp16
+2026-04-20 01:03:51,016 | INFO | app.agent.graph | [Agent.startup]   Config: enable_review=True
+2026-04-20 01:03:51,120 | INFO | app.agent.graph | [Agent.startup] ✓ Checkpointer initialized
+2026-04-20 01:03:51,297 | INFO | app.agent.graph | [Agent.startup] ✓ Graph compiled
+2026-04-20 01:03:51,299 | INFO | app.agent.graph | [Agent.startup] ✓ Research agent fully started
+2026-04-20 01:03:51,304 | INFO | app.agent.graph | [run_stream] Starting: run_id=c83ad91d-e703-4f4e-b7e1-fe090285fdea, chat_id=20052238-8f63-4daf-bb13-0c7aa8f981a5, llm_provider=groq, query=tell me about Immune2V Paper in detail
+2026-04-20 01:03:51,410 | INFO | app.agent.graph | [run_stream] Paper ID resolution: thread_stored=['019d8a2e-fcef-7d19-a3ac-29d88f949832'], request_param=None, chosen=['019d8a2e-fcef-7d19-a3ac-29d88f949832']
+2026-04-20 01:03:51,412 | INFO | app.agent.graph | [run_stream] ✓ Will filter RAG results to 1 focused paper(s)
+2026-04-20 01:03:51,668 | ERROR | app.agent.graph | [_rewrite_query] Rewrite failed: RuntimeError: LLM provider 'groq' is not configured in the API container. Available providers: ollama. Set GROQ_API_KEY and restart the API service to enable Groq.
+Traceback (most recent call last):
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 394, in _rewrite_query
+    msg = await self._llm(s, "router").ainvoke(prompt)
+                ~~~~~~~~~^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 252, in _llm
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: LLM provider 'groq' is not configured in the API container. Available providers: ollama. Set GROQ_API_KEY and restart the API service to enable Groq.
+2026-04-20 01:03:51,744 | ERROR | app.agent.graph | [_need_context] ERROR: RuntimeError: LLM provider 'groq' is not configured in the API container. Available providers: ollama. Set GROQ_API_KEY and restart the API service to enable Groq.
+Traceback (most recent call last):
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 455, in _need_context
+    msg = await self._llm(s, "router").ainvoke(prompt)
+                ~~~~~~~~~^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 252, in _llm
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: LLM provider 'groq' is not configured in the API container. Available providers: ollama. Set GROQ_API_KEY and restart the API service to enable Groq.
+2026-04-20 01:03:51,866 | ERROR | app.agent.graph | [_plan_sources] ERROR: RuntimeError: LLM provider 'groq' is not configured in the API container. Available providers: ollama. Set GROQ_API_KEY and restart the API service to enable Groq.
+Traceback (most recent call last):
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 502, in _plan_sources
+    msg = await self._llm(s, "router").ainvoke(prompt)
+                ~~~~~~~~~^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 252, in _llm
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: LLM provider 'groq' is not configured in the API container. Available providers: ollama. Set GROQ_API_KEY and restart the API service to enable Groq.
+2026-04-20 01:03:52,258 | INFO | app.agent.graph | [_rag_expand] Expanding query: tell me about Immune2V Paper in detail
+2026-04-20 01:03:52,282 | ERROR | app.agent.graph | [_rag_expand] ERROR: RuntimeError: LLM provider 'groq' is not configured in the API container. Available providers: ollama. Set GROQ_API_KEY and restart the API service to enable Groq.
+Traceback (most recent call last):
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 575, in _rag_expand
+    msg = await self._llm(s, "router").ainvoke(prompt)
+                ~~~~~~~~~^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 252, in _llm
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: LLM provider 'groq' is not configured in the API container. Available providers: ollama. Set GROQ_API_KEY and restart the API service to enable Groq.
+2026-04-20 01:03:52,367 | INFO | app.agent.graph | [_rag_retrieve] Hybrid search (3 queries, target=chunks) with paper filter: 1
+2026-04-20 01:03:52,371 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: tell me about Immune2V Paper in detail
+2026-04-20 01:04:01,232 | ERROR | app.agent.graph | [run_stream] ✗ FAILED: ClientConnectorDNSError: Cannot connect to host ollama:11434 ssl:default [getaddrinfo failed]
+Traceback (most recent call last):
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1574, in _create_direct_connection
+    hosts = await self._resolve_host(host, port, traces=traces)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1190, in _resolve_host
+    return await asyncio.shield(resolved_host_task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1221, in _resolve_host_with_throttle
+    addrs = await self._resolver.resolve(host, port, family=self._family)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\resolver.py", line 40, in resolve
+    infos = await self._loop.getaddrinfo(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\asyncio\base_events.py", line 936, in getaddrinfo
+    return await self.run_in_executor(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        None, getaddr_func, host, port, family, type, proto, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\socket.py", line 983, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 939, in run_stream
+    async for update in self._app.astream(state_in, config=config, stream_mode="updates"):
+    ...<31 lines>...
+            )
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\main.py", line 2997, in astream
+    async for _ in runner.atick(
+    ...<13 lines>...
+            yield o
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\_runner.py", line 304, in atick
+    await arun_with_retry(
+    ...<15 lines>...
+    )
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\_retry.py", line 163, in arun_with_retry
+    return await task.proc.ainvoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\_internal\_runnable.py", line 705, in ainvoke
+    input = await asyncio.create_task(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        step.ainvoke(input, config, **kwargs), context=context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\_internal\_runnable.py", line 473, in ainvoke
+    ret = await self.afunc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 606, in _rag_retrieve
+    results = await self.vs.search(
+              ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\vector_store.py", line 145, in search
+    return await self._search_chunks(session, query, k, paper_ids, use_hybrid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\vector_store.py", line 224, in _search_chunks
+    query_vec = await embed_query(query)
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\services\embeddings.py", line 26, in embed_query
+    vec = await _get_embedder().embed([text])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\llm\clients.py", line 37, in embed
+    results = await asyncio.gather(*tasks)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\llm\clients.py", line 48, in _embed_one
+    async with session.post(
+               ~~~~~~~~~~~~^
+        self._endpoint, json={"model": self._model, "prompt": text}
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ) as resp:
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\client.py", line 1521, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\client.py", line 788, in _request
+    resp = await handler(req)
+           ^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\client.py", line 742, in _connect_and_send_request
+    conn = await self._connector.connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        req, traces=traces, timeout=real_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 672, in connect
+    proto = await self._create_connection(req, traces, timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1251, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1580, in _create_direct_connection
+    raise ClientConnectorDNSError(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorDNSError: Cannot connect to host ollama:11434 ssl:default [getaddrinfo failed]
+During task with name 'rag_retrieve' and id 'a4aee055-ef8f-09f7-6249-449db29f8258'
+2026-04-20 01:05:39,413 | INFO | app.db.engine | Primary async engine created (pool=40)
+2026-04-20 01:05:39,416 | INFO | app.db.engine | Readonly async engine created (pool=10)
+2026-04-20 01:05:40,556 | INFO | app.agent.graph | [Agent.startup] Initializing agent...
+2026-04-20 01:05:40,557 | INFO | app.agent.graph | [Agent.startup]   LLM Base URL: http://ollama:11434
+2026-04-20 01:05:40,560 | INFO | app.agent.graph | [Agent.startup]   LLM Model: qwen3:0.6b-q4_K_M
+2026-04-20 01:05:40,561 | INFO | app.agent.graph | [Agent.startup]   Default LLM Provider: ollama
+2026-04-20 01:05:40,566 | INFO | app.agent.graph | [Agent.startup]   Available Providers: ['groq', 'ollama']
+2026-04-20 01:05:40,568 | INFO | app.agent.graph | [Agent.startup]   Embedder Model: qwen3-embedding:0.6b-fp16
+2026-04-20 01:05:40,570 | INFO | app.agent.graph | [Agent.startup]   Config: enable_review=True
+2026-04-20 01:05:40,679 | INFO | app.agent.graph | [Agent.startup] ✓ Checkpointer initialized
+2026-04-20 01:05:40,948 | INFO | app.agent.graph | [Agent.startup] ✓ Graph compiled
+2026-04-20 01:05:40,950 | INFO | app.agent.graph | [Agent.startup] ✓ Research agent fully started
+2026-04-20 01:05:40,952 | INFO | app.agent.graph | [run_stream] Starting: run_id=c68a2705-118f-443e-ad79-316e5107b6eb, chat_id=e806f2b7-42b2-4681-b285-c017763be283, llm_provider=groq, query=tell me about Immune2V Paper in detail
+2026-04-20 01:05:41,008 | INFO | app.agent.graph | [run_stream] Paper ID resolution: thread_stored=['019d8a2e-fcef-7d19-a3ac-29d88f949832'], request_param=None, chosen=['019d8a2e-fcef-7d19-a3ac-29d88f949832']
+2026-04-20 01:05:41,010 | INFO | app.agent.graph | [run_stream] ✓ Will filter RAG results to 1 focused paper(s)
+2026-04-20 01:05:41,543 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-20 01:05:41,633 | INFO | app.agent.graph | [_rewrite_query] ✓ Rewritten query: Immune2V paper details
+2026-04-20 01:05:41,906 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-20 01:05:41,915 | INFO | app.agent.graph | [_need_context] ✓ Routing decision: need=True
+2026-04-20 01:05:42,293 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-20 01:05:42,303 | INFO | app.agent.graph | [_plan_sources] ✓ Plan: history=False, rag=True
+2026-04-20 01:05:42,364 | INFO | app.agent.graph | [_rag_expand] Expanding query: Immune2V paper details
+2026-04-20 01:05:43,018 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-20 01:05:43,030 | INFO | app.agent.graph | [_rag_expand] ✓ Generated 3 queries
+2026-04-20 01:05:43,071 | INFO | app.agent.graph | [_rag_retrieve] Hybrid search (3 queries, target=chunks) with paper filter: 1
+2026-04-20 01:05:43,073 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: Immune2V paper details
+2026-04-20 01:05:51,864 | ERROR | app.agent.graph | [run_stream] ✗ FAILED: ClientConnectorDNSError: Cannot connect to host ollama:11434 ssl:default [getaddrinfo failed]
+Traceback (most recent call last):
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1574, in _create_direct_connection
+    hosts = await self._resolve_host(host, port, traces=traces)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1190, in _resolve_host
+    return await asyncio.shield(resolved_host_task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1221, in _resolve_host_with_throttle
+    addrs = await self._resolver.resolve(host, port, family=self._family)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\resolver.py", line 40, in resolve
+    infos = await self._loop.getaddrinfo(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\asyncio\base_events.py", line 936, in getaddrinfo
+    return await self.run_in_executor(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        None, getaddr_func, host, port, family, type, proto, flags)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\socket.py", line 983, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 939, in run_stream
+    async for update in self._app.astream(state_in, config=config, stream_mode="updates"):
+    ...<31 lines>...
+            )
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\main.py", line 2997, in astream
+    async for _ in runner.atick(
+    ...<13 lines>...
+            yield o
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\_runner.py", line 304, in atick
+    await arun_with_retry(
+    ...<15 lines>...
+    )
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\pregel\_retry.py", line 163, in arun_with_retry
+    return await task.proc.ainvoke(task.input, config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\_internal\_runnable.py", line 705, in ainvoke
+    input = await asyncio.create_task(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        step.ainvoke(input, config, **kwargs), context=context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\langgraph\_internal\_runnable.py", line 473, in ainvoke
+    ret = await self.afunc(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\graph.py", line 606, in _rag_retrieve
+    results = await self.vs.search(
+              ^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\vector_store.py", line 145, in search
+    return await self._search_chunks(session, query, k, paper_ids, use_hybrid)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\agent\vector_store.py", line 224, in _search_chunks
+    query_vec = await embed_query(query)
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\services\embeddings.py", line 26, in embed_query
+    vec = await _get_embedder().embed([text])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\llm\clients.py", line 37, in embed
+    results = await asyncio.gather(*tasks)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "d:\Awaiz\study\Courses\Semester 4\BrieflyAI\app\llm\clients.py", line 48, in _embed_one
+    async with session.post(
+               ~~~~~~~~~~~~^
+        self._endpoint, json={"model": self._model, "prompt": text}
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ) as resp:
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\client.py", line 1521, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\client.py", line 788, in _request
+    resp = await handler(req)
+           ^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\client.py", line 742, in _connect_and_send_request
+    conn = await self._connector.connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        req, traces=traces, timeout=real_timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 672, in connect
+    proto = await self._create_connection(req, traces, timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1251, in _create_connection
+    _, proto = await self._create_direct_connection(req, traces, timeout)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\afiniti\.conda\envs\BrieflyAI\Lib\site-packages\aiohttp\connector.py", line 1580, in _create_direct_connection
+    raise ClientConnectorDNSError(req.connection_key, exc) from exc
+aiohttp.client_exceptions.ClientConnectorDNSError: Cannot connect to host ollama:11434 ssl:default [getaddrinfo failed]
+During task with name 'rag_retrieve' and id 'b9300fab-7d28-68c7-6d14-506aaac47fc0'
+2026-04-20 01:09:46,503 | INFO | app.db.engine | Primary async engine created (pool=40)
+2026-04-20 01:09:46,505 | INFO | app.db.engine | Readonly async engine created (pool=10)
+2026-04-20 01:09:47,393 | INFO | app.agent.graph | [Agent.startup] Initializing agent...
+2026-04-20 01:09:47,396 | INFO | app.agent.graph | [Agent.startup]   LLM Base URL: http://localhost:11434
+2026-04-20 01:09:47,398 | INFO | app.agent.graph | [Agent.startup]   LLM Model: qwen3:0.6b-q4_K_M
+2026-04-20 01:09:47,399 | INFO | app.agent.graph | [Agent.startup]   Default LLM Provider: ollama
+2026-04-20 01:09:47,400 | INFO | app.agent.graph | [Agent.startup]   Available Providers: ['groq', 'ollama']
+2026-04-20 01:09:47,402 | INFO | app.agent.graph | [Agent.startup]   Embedder Model: qwen3-embedding:0.6b-fp16
+2026-04-20 01:09:47,403 | INFO | app.agent.graph | [Agent.startup]   Config: enable_review=True
+2026-04-20 01:09:47,468 | INFO | app.agent.graph | [Agent.startup] ✓ Checkpointer initialized
+2026-04-20 01:09:47,640 | INFO | app.agent.graph | [Agent.startup] ✓ Graph compiled
+2026-04-20 01:09:47,642 | INFO | app.agent.graph | [Agent.startup] ✓ Research agent fully started
+2026-04-20 01:09:47,644 | INFO | app.agent.graph | [run_stream] Starting: run_id=b7482a32-9f73-4d29-81e0-17b0a1bc36cf, chat_id=ca7d5f83-922e-4249-91fe-60283cd4c3af, llm_provider=groq, query=tell me about Immune2V Paper in detail
+2026-04-20 01:09:47,695 | INFO | app.agent.graph | [run_stream] Paper ID resolution: thread_stored=['019d8a2e-fcef-7d19-a3ac-29d88f949832'], request_param=None, chosen=['019d8a2e-fcef-7d19-a3ac-29d88f949832']
+2026-04-20 01:09:47,696 | INFO | app.agent.graph | [run_stream] ✓ Will filter RAG results to 1 focused paper(s)
+2026-04-20 01:09:48,148 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-20 01:09:48,174 | INFO | app.agent.graph | [_rewrite_query] ✓ Rewritten query: Immune2V paper details
+2026-04-20 01:09:48,416 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-20 01:09:48,423 | INFO | app.agent.graph | [_need_context] ✓ Routing decision: need=True
+2026-04-20 01:09:48,736 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-20 01:09:48,739 | INFO | app.agent.graph | [_plan_sources] ✓ Plan: history=False, rag=True
+2026-04-20 01:09:48,781 | INFO | app.agent.graph | [_rag_expand] Expanding query: Immune2V paper details
+2026-04-20 01:09:49,915 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-20 01:09:49,923 | INFO | app.agent.graph | [_rag_expand] ✓ Generated 3 queries
+2026-04-20 01:09:49,965 | INFO | app.agent.graph | [_rag_retrieve] Hybrid search (3 queries, target=chunks) with paper filter: 1
+2026-04-20 01:09:49,967 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: Immune2V paper details
+2026-04-20 01:10:18,655 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: Immune2V study methodology and results
+2026-04-20 01:10:19,546 | INFO | app.agent.vector_store | [PgVectorStore] Searching chunks for: Immune2V publication review and findings
+2026-04-20 01:10:20,133 | INFO | app.agent.graph | [_rag_retrieve] ✓ Total 3 results from hybrid search across 3 queries
+2026-04-20 01:10:20,297 | INFO | app.agent.graph | [_write] Generating answer with 1 context chunks, 0 history messages
+2026-04-20 01:10:21,577 | INFO | httpx | HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-20 01:10:21,586 | INFO | app.agent.graph | [_write] ✓ Answer generated (3798 chars)
+2026-04-20 01:10:22,029 | INFO | app.agent.graph | [run_stream] ✓ Completed: run_id=b7482a32-9f73-4d29-81e0-17b0a1bc36cf (13 updates)

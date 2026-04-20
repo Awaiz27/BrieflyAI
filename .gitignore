@@ -1,0 +1,139 @@
+# ── OS Files ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ── Environment & Secrets ─────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+!.env.example
+!.env*.example
+
+# ── Logs ──────────────────────────────────────────────────────────────────
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ── Dependencies & Modules ───────────────────────────────────────────────
+node_modules/
+vendor/
+.venv/
+venv/
+env/
+ENV/
+.venv/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# ── Build & Output ───────────────────────────────────────────────────────
+.next/
+dist/
+out/
+build/
+coverage/
+target/
+bin/
+obj/
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+*.out
+
+# ── Cache & Temp Files ───────────────────────────────────────────────────
+.cache/
+.tmp/
+temp/
+tmp/
+*.cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.tsbuildinfo
+
+# ── IDE & Editor ──────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ── Testing & Coverage ───────────────────────────────────────────────────
+.coverage
+coverage/
+htmlcov/
+.nyc_output/
+coverage.xml
+
+# ── Node.js / Frontend ────────────────────────────────────────────────────
+node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-lock.yaml
+package-lock.json
+.next/
+.env.local
+.env.*.local
+
+# ── Python / Backend ──────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# ── Database ──────────────────────────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+
+# ── Jupyter Notebooks ────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints/
+Explore.ipynb
+# agent.ipynb
+
+# ── Java (if used) ────────────────────────────────────────────────────────
+*.class
+*.jar
+*.war
+.gradle/
+
+# ── Archives ──────────────────────────────────────────────────────────────
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
+
+# ── Misc ──────────────────────────────────────────────────────────────────
+*.pid
+*.seed
+md_files/
+# misc/
+.vercel/
+.turbo/
