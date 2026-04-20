@@ -1,0 +1,50 @@
+# Core
+typing_extensions>=4.8.0
+pydantic[email]==2.12.5
+pydantic-settings>=2.4.0
+
+# Web framework
+fastapi==0.128.0
+uvicorn[standard]==0.40.0
+python-multipart==0.0.21
+
+# Database
+SQLAlchemy[asyncio]==2.0.44
+asyncpg==0.31.0
+alembic==1.17.2
+psycopg2-binary==2.9.11
+psycopg[binary,async]>=3.1.0
+pgvector>=0.3.0
+uuid6>=2024.1.12
+
+# Auth
+PyJWT>=2.8.0
+bcrypt>=4.1.0
+
+# HTTP / Feed
+feedparser
+requests
+python-dateutil
+aiohttp>=3.9.0
+
+# Data processing
+numpy
+
+# PDF processing
+docling==2.66.0
+
+# LLM
+langchain-core==1.2.16
+langchain-groq>=0.2.0
+langchain-ollama==1.0.1
+langgraph==1.0.10
+langgraph-checkpoint==4.0.1
+langgraph-checkpoint-postgres>=2.0.0
+langgraph-prebuilt==1.0.8
+ollama==0.6.1
+httpx==0.28.1
+
+# Task queue
+celery[rabbitmq]>=5.4.0
+redis>=5.0.0
+kombu>=5.3.0

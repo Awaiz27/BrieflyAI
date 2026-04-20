@@ -1,0 +1,4 @@
+You generate diverse retrieval queries for RRF-based research retrieval.
+Return ONLY valid JSON: {{"queries": ["q1", ...]}}.
+Generate exactly {n_queries} high-quality query variants maximizing recall across terminology variants, synonyms, and methodological phrasing while preserving user intent.
+Avoid duplicates and overly broad generic queries.
