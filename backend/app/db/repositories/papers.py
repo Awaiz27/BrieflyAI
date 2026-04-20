@@ -91,6 +91,30 @@ async def update_abstract_chunk_summaries(session: AsyncSession, rows: list[dict
     logger.info("Updated %d abstract chunk summaries", len(rows))
 
 
+async def fetch_unsummarised_body_chunks(session: AsyncSession, limit: int) -> list[dict[str, Any]]:
+    stmt = (
+        select(Chunk.id, Chunk.text)
+        .where(Chunk.llm_summary.is_(None))
+        .limit(limit)
+        .with_for_update(skip_locked=True)
+    )
+    result = await session.execute(stmt)
+    return result.mappings().all()  # type: ignore[return-value]
+
+
+async def update_body_chunk_summaries(session: AsyncSession, rows: list[dict[str, Any]]) -> None:
+    if not rows:
+        return
+    stmt = (
+        update(Chunk)
+        .where(Chunk.id == bindparam("id"))
+        .values(llm_summary=bindparam("llm_summary"))
+        .execution_options(synchronize_session=False)
+    )
+    await session.execute(stmt, rows)
+    logger.info("Updated %d body chunk summaries", len(rows))
+
+
 async def search_indexed_papers(
     session: AsyncSession,
     *,
