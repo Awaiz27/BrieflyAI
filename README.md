@@ -2,12 +2,15 @@
 
 **An intelligent research assistant that helps you discover, analyze, and discuss academic papers using advanced RAG and multi-provider LLM support.**
 
-![Python](https://img.shields.io/badge/Python-3.11+-3776ab?logo=python&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5+-3178c6?logo=typescript&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688?logo=fastapi&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-15+-000000?logo=next.js&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16+-336791?logo=postgresql&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green)
+<p align="center">
+     <img alt="Python" src="https://img.shields.io/badge/Python-3.11+-3776ab?logo=python&logoColor=white" />
+     <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5+-3178c6?logo=typescript&logoColor=white" />
+     <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-0.100+-009688?logo=fastapi&logoColor=white" />
+     <img alt="Next.js" src="https://img.shields.io/badge/Next.js-15+-000000?logo=next.js&logoColor=white" />
+     <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-16+-336791?logo=postgresql&logoColor=white" />
+     <img alt="LangChain" src="https://img.shields.io/badge/LangChain-Agent%20Orchestration-0F172A?logo=chainlink&logoColor=white" />
+     <img alt="License" src="https://img.shields.io/badge/License-MIT-green" />
+</p>
 
 ---
 
@@ -21,6 +24,40 @@
 - 📊 **Get structured insights** with markdown-formatted responses
 - 🎯 **Scoped analysis** by selecting relevant papers for context
 - 🚀 **Production-ready** with Docker, PostgreSQL, and async processing
+
+### Preview
+
+<p align="center">
+     <img src="images/Paper_Discovery.png" alt="Paper Discovery" width="900" />
+</p>
+
+---
+
+## 🖼️ Screenshots
+
+### Login Interface
+
+<p align="center">
+     <img src="images/login.png" alt="Login Screen" width="900" />
+</p>
+
+### Paper Discovery
+
+<p align="center">
+     <img src="images/Paper_Discovery.png" alt="Paper Discovery Screen" width="900" />
+</p>
+
+### Research Chat
+
+<p align="center">
+     <img src="images/Chat.png" alt="Research Chat Screen" width="900" />
+</p>
+
+### Agent Workflow
+
+<p align="center">
+     <img src="images/agent_workflow.png" alt="Agent Workflow Graph" width="520" />
+</p>
 
 ---
 
@@ -39,6 +76,10 @@
 - **Provider flexibility** — switch between Ollama and Groq mid-conversation
 - **Thinking modes** — "Fast" mode for quick answers, "Detailed" mode for depth
 - **Streaming responses** via Server-Sent Events (SSE)
+
+<p align="center">
+     <img src="images/Chat.png" alt="Chat Interface" width="900" />
+</p>
 
 ### 🧠 Advanced RAG (Retrieval-Augmented Generation)
 - **Hybrid search** combining vector embeddings + keyword FTS (Full-Text Search)
@@ -95,7 +136,7 @@
 
 ### System Diagram
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                     Frontend (Next.js)                      │
 │  ┌──────────────────────────────────────────────────────┐   │
@@ -141,6 +182,14 @@
                                        │Tasks │
                                        └──────┘
 ```
+
+### Agent Workflow Visualization
+
+The LangGraph agent flow below shows how the system processes user input, decides whether additional context is needed, performs retrieval when necessary, and then writes, reviews, and persists the final answer.
+
+<p align="center">
+     <img src="images/agent_workflow.png" alt="Agent Workflow" width="520" />
+</p>
 
 ### Key Components
 
@@ -366,6 +415,10 @@ Note:
 - Hybrid vector search remains part of the RAG/agent pipeline for chat reasoning.
 - Discover browsing now uses the simpler indexed search path by design.
 
+<p align="center">
+     <img src="images/Paper_Discovery.png" alt="Discover Search UI" width="900" />
+</p>
+
 ---
 
 ## 🔧 Configuration
@@ -496,6 +549,37 @@ POST   /auth/logout                 Invalidate token
 ```
 
 **Full docs**: http://localhost:9001/docs (Swagger UI)
+
+---
+
+## 🧑‍💻 User Experience
+
+The application is designed around a simple research workflow:
+
+1. Sign in to the platform.
+2. Browse or search indexed papers.
+3. Filter by category to narrow down relevant literature.
+4. Select a paper or a group of papers for focused discussion.
+5. Open the chat interface and ask natural-language questions.
+6. Read markdown-formatted answers grounded in the selected research context.
+
+### Authentication
+
+<p align="center">
+     <img src="images/login.png" alt="Authentication UI" width="900" />
+</p>
+
+### Browsing and Filtering Papers
+
+<p align="center">
+     <img src="images/Paper_Discovery.png" alt="Paper Browsing UI" width="900" />
+</p>
+
+### Interactive Exploration Through Chat
+
+<p align="center">
+     <img src="images/Chat.png" alt="Interactive Chat UI" width="900" />
+</p>
 
 ---
 
