@@ -183,14 +183,6 @@
                                        └──────┘
 ```
 
-### Agent Workflow Visualization
-
-The LangGraph agent flow below shows how the system processes user input, decides whether additional context is needed, performs retrieval when necessary, and then writes, reviews, and persists the final answer.
-
-<p align="center">
-     <img src="images/agent_workflow.png" alt="Agent Workflow" width="520" />
-</p>
-
 ### Key Components
 
 | Component | Role | Technology |
@@ -562,24 +554,6 @@ The application is designed around a simple research workflow:
 4. Select a paper or a group of papers for focused discussion.
 5. Open the chat interface and ask natural-language questions.
 6. Read markdown-formatted answers grounded in the selected research context.
-
-### Authentication
-
-<p align="center">
-     <img src="images/login.png" alt="Authentication UI" width="900" />
-</p>
-
-### Browsing and Filtering Papers
-
-<p align="center">
-     <img src="images/Paper_Discovery.png" alt="Paper Browsing UI" width="900" />
-</p>
-
-### Interactive Exploration Through Chat
-
-<p align="center">
-     <img src="images/Chat.png" alt="Interactive Chat UI" width="900" />
-</p>
 
 ---
 
